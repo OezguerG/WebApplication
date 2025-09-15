@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "Web Engineering 2, Blatt 06",
   "scripts": {
-    "test": "jest --runInBand",
-    "build": "tsc",
-    "abgabe": "ziplocalgit zip -f abgabe_Blatt_06.zip",
-    "start": "nodemon --exec \"node --inspect --require ts-node/register src/index.ts\" -e ts,mts,js,mjs --watch src",
-    "clean": "rimraf dist coverage junit.xml abgabe*.zip all.log"
+    "dev": "nodemon --require ts-node/register src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
