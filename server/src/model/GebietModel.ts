@@ -1,5 +1,5 @@
 import { Schema, model, Types } from "mongoose"
-import { Prof } from "../../src/model/ProfModel";
+import { Prof } from "./ProfModel";
 
 export interface IGebiet {
     name: string
