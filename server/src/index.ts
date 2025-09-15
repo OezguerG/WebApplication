@@ -1,63 +1,62 @@
 /* istanbul ignore file */
-import dotenv from "dotenv";
-dotenv.config() // read ".env"
-
+import "dotenv/config";
 import http from "http";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import app from "./app";
-import { logger } from "./logger";
-import { readFile } from "fs/promises";
-import https from 'https';
-import { prefillDB } from "./prefill";
-
+import { prefillDB } from "./prefill"; // keep if you have it
+// If you have a logger module, import and use it; else use console.
+const logger = console as any;
 
 async function setup() {
+  let mongoUri = process.env.MONGODB_URI || process.env.DB_CONNECTION_STRING;
+  if (!mongoUri) {
+    logger.error('Set MONGODB_URI or DB_CONNECTION_STRING (or "memory" in dev).');
+    process.exit(1);
+  }
 
-    let mongodURI = process.env.DB_CONNECTION_STRING;
-    if (!mongodURI) {
-        logger.error(`Cannot start, no database configured. Set environment variable DB_CONNECTION_STRING. Use "memory" for MongoMemoryServer`);
-        process.exit(1);
+  if (mongoUri === "memory") {
+    if (process.env.NODE_ENV === "production") {
+      logger.error("Refusing to start MongoMemoryServer in production.");
+      process.exit(1);
     }
-    if (mongodURI === "memory") {
-        logger.info("Start MongoMemoryServer")
-        const MMS = await import('mongodb-memory-server')
-        const mongo = await MMS.MongoMemoryServer.create();
-        mongodURI = mongo.getUri();
-    }
+    logger.info("Starting MongoMemoryServer...");
+    const MMS = await import("mongodb-memory-server");
+    const mongo = await MMS.MongoMemoryServer.create();
+    mongoUri = mongo.getUri();
+  }
 
-    logger.info(`Connect to mongod at ${mongodURI}`)
-    await mongoose.connect(mongodURI);
+  logger.info(`Connecting to MongoDB: ${mongoUri}`);
+  await mongoose.connect(mongoUri);
 
-    if (process.env.DB_PREFILL === "true") {
-        await prefillDB();
-    }
-    const useSSL = process.env.USE_SSL === 'true'
-    if (useSSL) {
-        try {
-            const [privateSSLKey, publicSSLCert] = await Promise.all([
-                readFile(process.env.SSL_KEY_FILE!),
-                readFile(process.env.SSL_CRT_FILE!)]);
+  if (process.env.DB_PREFILL === "true") {
+    logger.info("DB_PREFILL=true → running prefillDB()");
+    await prefillDB();
+  }
 
-            const httpsPort = process.env.HTTPS_PORT ? parseInt(process.env.HTTPS_PORT!) : 3001;
-            const httpsServer = https.createServer({ key: privateSSLKey, cert: publicSSLCert }, app);
-            httpsServer.listen(httpsPort, () => {
-                logger.info(`Listening for HTTPS at https://localhost:${httpsPort}`);
-            });
-        } catch (error) {
-            if (error instanceof Error) {
-                logger.error(`Error setting up HTTPS: ${error.message}`);
-            } else {
-                logger.error('An unknown error occurred');
-            }
-        }
-        
-    } else {
-        const port = process.env.HTTP_PORT ? parseInt(process.env.HTTP_PORT) : 3000;
-        const httpServer = http.createServer(app);
-        httpServer.listen(port, () => {
-            logger.info(`Listening for HTTP at http://localhost:${port}`);
-        });
+  const port = Number(process.env.PORT) || Number(process.env.HTTP_PORT) || 3000;
+  const host = "0.0.0.0";
+  const server = http.createServer(app);
+
+  server.listen(port, host, () => {
+    logger.info(`HTTP listening on ${host}:${port}`);
+  });
+
+  const shutdown = async (sig: NodeJS.Signals) => {
+    try {
+      logger.info(`Received ${sig}, shutting down...`);
+      await new Promise<void>((resolve, reject) => server.close(err => (err ? reject(err) : resolve())));
+      await mongoose.connection.close();
+      process.exit(0);
+    } catch (e: any) {
+      logger.error(`Shutdown error: ${e?.message}`);
+      process.exit(1);
     }
-    
-};
-setup();
+  };
+  process.on("SIGINT", () => shutdown("SIGINT"));
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
+}
+
+setup().catch(err => {
+  console.error(`Fatal startup error: ${(err as Error).message}`);
+  process.exit(1);
+});

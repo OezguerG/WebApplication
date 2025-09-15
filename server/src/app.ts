@@ -14,6 +14,9 @@ app.use(cookieParser());
 // Wozu wird diese Middleware benötigt?
 app.use(express.json());
 
+app.set("trust proxy", 1);
+
+
 app.use('/api/prof', profRouter);
 app.use('/api/thema', themaRouter);
 app.use('/api/gebiet', gebietRouter);
