@@ -89,10 +89,10 @@ loginRouter.get("/",
 loginRouter.delete("/",
     async (_req, res) => {
         res.clearCookie(COOKIE_NAME, {
-            httpOnly: true,
-            sameSite: 'none',
-            secure: true,
-        })
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        });
 
         res.status(200).send("Logged out");
     });
