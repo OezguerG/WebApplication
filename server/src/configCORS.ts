@@ -22,8 +22,7 @@ export function configureCORS(app: express.Express) {
             optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
             credentials: true
         }
-        const allowed = ["https://your-frontend.vercel.app"];
-        app.use(cors({ origin: allowed, credentials: true }));
+        app.use(cors(corsOptions));
         app.options('*', cors()) // enable pre-flight (request method "option") everywhere, you may want to specify that in detail in production
         // logger.info(`CORS enabled for origin ${process.env.CORS_ORIGIN}`);
     }
