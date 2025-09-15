@@ -25,10 +25,10 @@ loginRouter.post("/",
             const jwtString = await verifyPasswordAndCreateJWT(campusID, password);
             const decoded = verifyJWT(jwtString);
             res.cookie(COOKIE_NAME, jwtString, {
-                httpOnly: true,
-                sameSite: "none",
-                secure: true,
-                expires: new Date(Date.now() + TTL * 1000),
+            httpOnly: true, // cannot be read from JS
+            secure: process.env.NODE_ENV === "production", // true on Render, false locally
+            sameSite: "none", // required for cross-site
+            maxAge: TTL * 1000, // milliseconds, easier than calculating a Date
             });
             
             res.status(201).send({
