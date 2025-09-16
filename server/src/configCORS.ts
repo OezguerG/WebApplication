@@ -1,50 +1,59 @@
 // configCORS.ts
-// istanbul ignore file
 import express from "express";
 import cors, { CorsOptions } from "cors";
 import { logger } from "./logger";
 
 export function configureCORS(app: express.Express) {
+  // e.g. "https://web-application-bice-sigma.vercel.app, *.vercel.app"
   const raw = process.env.CORS_ORIGIN || "";
-  const staticList = raw
-    .split(",")
-    .map(s => s.trim())
-    .filter(Boolean); // e.g. ["https://your-frontend.vercel.app", "*.vercel.app"]
+  const allowList = raw.split(",").map(s => s.trim()).filter(Boolean);
+  const allowLocal = process.env.ALLOW_LOCALHOST === "true";
 
-  if (staticList.length === 0) {
-    logger.warn("WARNING: CORS_ORIGIN not set — no origins will be allowed");
+  if (allowList.length === 0) {
+    logger.warn("CORS_ORIGIN not set — only requests without Origin will be allowed");
+  } else {
+    logger.info(`CORS allowlist: ${JSON.stringify(allowList)}`);
   }
 
   const corsOptions: CorsOptions = {
     origin(origin, cb) {
-      // Allow non-browser calls (no Origin), e.g. curl/health checks
+      // allow server-to-server / curl / health (no Origin header)
       if (!origin) return cb(null, true);
 
       try {
-        const u = new URL(origin);
-        const host = u.hostname;
+        const url = new URL(origin);
+        const { protocol, hostname } = url;
 
-        // exact match list
-        const allowExact = staticList.includes(origin);
+        // exact full-origin match (must include https://)
+        const exact = allowList.includes(origin);
 
-        // wildcard support for *.vercel.app previews
-        const allowWildcard = staticList.some(
-          v => v === "*.vercel.app" && /(?:^|\.)vercel\.app$/i.test(host)
-        );
+        // wildcard for any vercel preview
+        const vercelPreview =
+          allowList.includes("*.vercel.app") &&
+          protocol === "https:" &&
+          /\.vercel\.app$/i.test(hostname);
 
-        const allowed = allowExact || allowWildcard;
-        return cb(allowed ? null : new Error("CORS: Origin not allowed"), allowed);
+        // optional localhost for dev
+        const localhostOk =
+          allowLocal &&
+          /^https?:$/.test(protocol) &&
+          /^(localhost|127\.0\.0\.1)$/i.test(hostname);
+
+        if (exact || vercelPreview || localhostOk) return cb(null, true);
+
+        // ❌ Do NOT throw here — returning an error makes Express send 500
+        return cb(null, false); // deny without crashing (no CORS headers)
       } catch {
-        return cb(new Error("CORS: Bad Origin"), false);
+        return cb(null, false);
       }
     },
-    credentials: true, // matches your fetch(..., { credentials: "include" })
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     optionsSuccessStatus: 204,
+    maxAge: 600,
   };
 
   app.use(cors(corsOptions));
-  // IMPORTANT: use the SAME options for preflight
   app.options("*", cors(corsOptions));
 }
