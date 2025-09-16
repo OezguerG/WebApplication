@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PageIndex } from "./components/PageIndex";
 import { PageGebiet } from "./components/PageGebiet";
@@ -15,6 +15,28 @@ import { ErrorFallback } from "./components/ErrorBoundary";
 import { NavigationContextProvider } from "./components/NavigationContext.Provider";
 
 const App: React.FC = () => {
+  // ping to keep backend server alive
+  useEffect(() => {
+    // function to run on interval
+    const pingServer = async () => {
+      try {
+        await fetch("https://your-backend.onrender.com/health");
+        console.log("Pinged backend");
+      } catch (err) {
+        console.error("Ping failed:", err);
+      }
+    };
+
+    // run immediately once
+    pingServer();
+
+    // then every 5 minutes (300000 ms)
+    const intervalId = setInterval(pingServer, 300000);
+
+    // cleanup when component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <LoginContextProvider>
       <NavigationContextProvider>
