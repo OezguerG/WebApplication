@@ -5,11 +5,11 @@ Entwicklung einer Full-Stack-Anwendung.
 Umsetzung von Benutzer-Authentifizierung, REST-API und responsivem UI.
 Frontend: React, Backend: Node.js, Datenbank: MongoDB
 
-# Website Demo
+# Website Demo Instructions
 
 https://webapplication-amhb.onrender.com
 
-https://web-application-sigma-tawny.vercel.app
+https://web-application-tvnnk5h01-ozgur-guleryuzs-projects.vercel.app
 
 
 # Lizenz (License)
