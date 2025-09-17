@@ -7,10 +7,10 @@ Frontend: React, Backend: Node.js, Datenbank: MongoDB
 
 # Website Demo Instructions
 
+Klicken Sie auf diesen Link um den backend Server zu starten:
 https://webapplication-amhb.onrender.com
 
-https://web-application-tvnnk5h01-ozgur-guleryuzs-projects.vercel.app
-
+Auf diesem ist ein link der auf die Demo-Website verweißt, dann kannst auch schon losgehen!
 
 # Lizenz (License)
 Die Dateien dürfen nur im Rahmen der oben genannten Vorlesung verwendet werden und sind nur zum persönlichen Gebrauch bestimmt.
