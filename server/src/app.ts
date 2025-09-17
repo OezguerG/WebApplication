@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express from 'express';
 import "express-async-errors"; // needs to be imported before routers and other stuff!
 import { profRouter } from './routes/prof';
@@ -6,6 +7,8 @@ import { gebietRouter } from './routes/gebiet';
 import { loginRouter } from './routes/login';
 import cookieParser from 'cookie-parser';
 import { configureCORS } from './configCORS';
+
+dotenv.config();
 
 const app = express();
 configureCORS(app)
