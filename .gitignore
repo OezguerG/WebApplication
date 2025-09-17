@@ -1,19 +1,2 @@
-# Node
-node_modules/
-npm-debug.log*
-yarn*.log
-pnpm-debug.log*
-
-# Build
-dist/
-build/
-
-# Env
+cert/
 .env
-.env.*.local
-
-# OS/IDE
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
