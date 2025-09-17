@@ -15,7 +15,7 @@ Auf diesem ist ein link der auf die Demo-Website verweißt, dann kannst auch sch
 Beim Login der Demo-Seite können Sie 2 Benutzerdaten verwenden und verschiedene Funktionen bezüglich der Benutzerberechtigungen ausprobieren:
 
 Moriarty
-CampusID: 4598103
+CampusID: 459810
 Password: 123_abc_ABC
 
 Holmes
