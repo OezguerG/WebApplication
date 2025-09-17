@@ -14,6 +14,7 @@ import { createGebiet } from "./services/GebietService";
  * Diese Funktion benötigen wir später zu Testzwecken im Frontend.
  */
 export async function prefillDB(): Promise<{
+    holmes: ProfResource;
     moriarty: ProfResource;
     gebiete: GebietResource[];
 }> {
@@ -28,11 +29,14 @@ export async function prefillDB(): Promise<{
         password: "123_abc_ABC",
         admin: true,
     });
+    logger.info(
+        `Prefill DB with test data, campusID: ${moriarty.campusID}, password 123_abc_ABC`
+    );
 
-    const moriarty3 = await createProf({
-        name: "Moriarty",
+    const holmes = await createProf({
+        name: "Holmes",
         titel: "Prof. Dr.",
-        campusID: "4598103",
+        campusID: "459813",
         password: "123_abc_ABC",
         admin: true,
     });
@@ -53,14 +57,7 @@ export async function prefillDB(): Promise<{
         name: "KI",
         beschreibung: "Aktuelle Techniken der künstlichen Intelligenz",
         public: false,
-        verwalter: moriarty3.id!,
-        closed: false,
-    });
-    const gebiet3 = await createGebiet({
-        name: "Raumfahrt",
-        beschreibung: "Entwicklung von Raumfahrttechnik",
-        public: true,
-        verwalter: moriarty.id!,
+        verwalter: holmes.id!,
         closed: false,
     });
 
@@ -91,7 +88,7 @@ export async function prefillDB(): Promise<{
         abschluss: "bsc",
         status: "offen",
         gebiet: gebiet2.id!,
-        betreuer: moriarty.id!,
+        betreuer: holmes.id!,
     });
 
     await createThema({
@@ -101,7 +98,7 @@ export async function prefillDB(): Promise<{
         abschluss: "msc",
         status: "offen",
         gebiet: gebiet2.id!,
-        betreuer: moriarty.id!,
+        betreuer: holmes.id!,
     });
 
     await createThema({
@@ -111,11 +108,11 @@ export async function prefillDB(): Promise<{
         abschluss: "msc",
         status: "reserviert",
         gebiet: gebiet2.id!,
-        betreuer: moriarty.id!,
+        betreuer: holmes.id!,
     });
 
     gebieteArr.push({ ...gebiet1, anzahlThemen: 2 });
     gebieteArr.push({ ...gebiet2, anzahlThemen: 3 });
 
-    return { moriarty: moriarty, gebiete: gebieteArr };
+    return { moriarty: moriarty, holmes: holmes, gebiete: gebieteArr };
 }
