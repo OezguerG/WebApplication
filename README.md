@@ -12,5 +12,13 @@ https://webapplication-amhb.onrender.com
 
 Auf diesem ist ein link der auf die Demo-Website verweißt, dann kannst auch schon losgehen!
 
+Beim Login der Demo-Seite können Sie 2 Benutzerdaten verwenden und verschiedene Funktionen bezüglich der Benutzerberechtigungen ausprobieren:
+
+CampusID: 4598103
+Password: 123_abc_ABC
+
+CampusID: 459810
+Password: 123_abc_ABC
+
 # Lizenz (License)
 Die Dateien dürfen nur im Rahmen der oben genannten Vorlesung verwendet werden und sind nur zum persönlichen Gebrauch bestimmt.
