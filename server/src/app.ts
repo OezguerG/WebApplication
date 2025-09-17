@@ -16,8 +16,10 @@ app.use(express.json());
 
 app.set("trust proxy", 1);
 
+const verselLink = proccess.env.VERSEL_LINK
+
 app.get("/", (_req, res) => {
-  res.type("text/plain").send("API is running. Try /health or /api/... — frontend is on Vercel.");
+  res.type("text/plain").send(`API is running. Try /health or /api/... — frontend is on Vercel: ${verselLink}.`);
 });
 
 app.get("/health", (_req, res) => {
