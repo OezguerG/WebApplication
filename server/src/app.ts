@@ -19,7 +19,9 @@ app.set("trust proxy", 1);
 const verselLink = process.env.VERSEL_LINK
 
 app.get("/", (_req, res) => {
-  res.type("text/plain").send(`API is running. Try /health or /api/... — frontend is on Vercel: ${verselLink}.`);
+  res.type("html").send(`
+    <p>API is running. Try <a href="/health">/health</a> or <a href="/api/...">/api/...</a> — frontend is on Vercel: <a href="${verselLink}" target="_blank">${verselLink}</a>.</p>
+  `);
 });
 
 app.get("/health", (_req, res) => {
