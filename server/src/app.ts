@@ -24,9 +24,15 @@ console.log("VERSEL_LINK =", process.env.VERSEL_LINK);
 
 app.get("/", (_req, res) => {
   res.type("html").send(`
-    <p>API is running. Try <a href="/health">/health</a> or <a href="/api/...">/api/...</a> — frontend is on Vercel: <a href="${verselLink}" target="_blank">${verselLink}</a>.</p>
+    <p>
+      API is running. Try 
+      <a href="/health">/health</a> or 
+      <a href="/api/...">/api/...</a> — frontend is on Vercel: 
+      <a href=${verselLink} target="_blank">${verselLink}</a>.
+    </p>
   `);
 });
+
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
