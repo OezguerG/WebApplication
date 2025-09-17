@@ -1,13 +1,18 @@
 {
-  "name": "client",
+  "name": "we2.blatt11",
   "private": true,
   "version": "1.0.0",
   "description": "Web Engineering 2, Blatt 11",
   "type": "module",
   "scripts": {
+    "abgabe": "ziplocalgit zip -f abgabe_Blatt_11.zip",
+    "build": "tsc -b && vite build",
+    "clean": "rimraf dist coverage junit.xml abgabe*.zip all.log",
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "serve": "serve -s --ssl-cert cert/public.crt --ssl-key cert/private.key -p 3000 --no-port-switching dist",
+    "test": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 vitest run"
   },
   "dependencies": {
     "bootstrap": "5.3.3",

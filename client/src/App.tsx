@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PageIndex } from "./components/PageIndex";
 import { PageGebiet } from "./components/PageGebiet";
@@ -9,52 +9,33 @@ import { PageAdmin } from "./components/PageAdmin";
 import { PagePrefs } from "./components/PagePrefs";
 import { Header } from "./components/Header";
 import { PageLogin } from "./components/PageLogin";
+import { LoginManager } from "./components/LoginManager";
 import { LoginContextProvider } from "./components/LoginContext.Provider";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./components/ErrorBoundary";
 import { NavigationContextProvider } from "./components/NavigationContext.Provider";
 
 const App: React.FC = () => {
-  // ping to keep backend server alive
-  useEffect(() => {
-    // function to run on interval
-    const pingServer = async () => {
-      try {
-        await fetch("https://your-backend.onrender.com/health");
-        console.log("Pinged backend");
-      } catch (err) {
-        console.error("Ping failed:", err);
-      }
-    };
-
-    // run immediately once
-    pingServer();
-
-    // then every 5 minutes (300000 ms)
-    const intervalId = setInterval(pingServer, 300000);
-
-    // cleanup when component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
-
   return (
     <LoginContextProvider>
       <NavigationContextProvider>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <div className="app-content">
-            <Header />
-            <Routes>
-              <Route path="/" element={<PageIndex />} />
-              <Route path="/gebiet/:id" element={<PageGebiet />} />
-              <Route path="/gebiet/neu" element={<PageGebietNew />} />
-              <Route path="/thema/:id" element={<PageThema />} />
-              <Route path="/gebiet/:id/thema/neu" element={<PageThemaNew />} />
-              <Route path="/admin" element={<PageAdmin />} />
-              <Route path="/prefs" element={<PagePrefs />} />
-              <Route path="/login" element={<PageLogin />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </div>
+          <LoginManager>
+            <div className="app-content">
+              <Header />
+              <Routes>
+                <Route path="/" element={<PageIndex />} />
+                <Route path="/gebiet/:id" element={<PageGebiet />} />
+                <Route path="/gebiet/neu" element={<PageGebietNew />} />
+                <Route path="/thema/:id" element={<PageThema />} />
+                <Route path="/gebiet/:id/thema/neu" element={<PageThemaNew />} />
+                <Route path="/admin" element={<PageAdmin />} />
+                <Route path="/prefs" element={<PagePrefs />} />
+                <Route path="/login" element={<PageLogin />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </div>
+          </LoginManager>
         </ErrorBoundary>
       </NavigationContextProvider>
     </LoginContextProvider>
