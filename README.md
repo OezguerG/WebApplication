@@ -1,26 +1,36 @@
-# General
-Das Projekt entstand im Rahmen der Vorlesung Webengineering 2.
+# General  
+Dieses Projekt entstand im Rahmen der Vorlesung *Webengineering 2*.  
 
-Entwicklung einer Full-Stack-Anwendung.
-Umsetzung von Benutzer-Authentifizierung, REST-API und responsivem UI.
-Frontend: React, Backend: Node.js, Datenbank: MongoDB
+Es handelt sich um die Entwicklung einer Full-Stack-Anwendung mit folgenden Kernfunktionen:  
+- Benutzer-Authentifizierung  
+- REST-API  
+- Responsives UI  
 
-# Website Demo Instructions
+**Technologien:**  
+- Frontend: React  
+- Backend: Node.js  
+- Datenbank: MongoDB  
 
-Klicken Sie auf diesen Link um den backend Server zu starten:
-https://webapplication-amhb.onrender.com
+---
 
-Auf diesem ist ein link der auf die Demo-Website verweißt, dann kannst auch schon losgehen!
+# Website Demo Instructions  
 
-Beim Login der Demo-Seite können Sie 2 Benutzerdaten verwenden und verschiedene Funktionen bezüglich der Benutzerberechtigungen ausprobieren:
+1. Starten Sie den Backend-Server über folgenden Link:  
+   [Backend-Server starten](https://webapplication-amhb.onrender.com)  
 
-Moriarty
-CampusID: 459810
-Password: 123_abc_ABC
+2. Auf der dortigen Seite finden Sie einen Link zur Demo-Webseite.  
 
-Holmes
-CampusID: 459813
-Password: 123_abc_ABC
+3. Zum Testen des Logins können Sie die folgenden Benutzerdaten verwenden und unterschiedliche Funktionen sowie Benutzerberechtigungen ausprobieren:  
 
-# Lizenz (License)
-Die Dateien dürfen nur im Rahmen der oben genannten Vorlesung verwendet werden und sind nur zum persönlichen Gebrauch bestimmt.
+**Benutzer 1 – Moriarty**  
+- CampusID: `459810`  
+- Passwort: `123_abc_ABC`  
+
+**Benutzer 2 – Holmes**  
+- CampusID: `459813`  
+- Passwort: `123_abc_ABC`  
+
+---
+
+# Lizenz (License)  
+Die Dateien dürfen ausschließlich im Rahmen der oben genannten Vorlesung verwendet werden und sind nur zum persönlichen Gebrauch bestimmt.  
