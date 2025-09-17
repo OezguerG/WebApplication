@@ -1,0 +1,44 @@
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { PageIndex } from "./components/PageIndex";
+import { PageGebiet } from "./components/PageGebiet";
+import { PageGebietNew } from "./components/PageGebietNew";
+import { PageThema } from "./components/PageThema";
+import { PageThemaNew } from "./components/PageThemaNew";
+import { PageAdmin } from "./components/PageAdmin";
+import { PagePrefs } from "./components/PagePrefs";
+import { Header } from "./components/Header";
+import { PageLogin } from "./components/PageLogin";
+import { LoginManager } from "./components/LoginManager";
+import { LoginContextProvider } from "./components/LoginContext.Provider";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./components/ErrorBoundary";
+import { NavigationContextProvider } from "./components/NavigationContext.Provider";
+
+const App: React.FC = () => {
+  return (
+    <LoginContextProvider>
+      <NavigationContextProvider>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <LoginManager>
+            <div className="app-content">
+              <Header />
+              <Routes>
+                <Route path="/" element={<PageIndex />} />
+                <Route path="/gebiet/:id" element={<PageGebiet />} />
+                <Route path="/gebiet/neu" element={<PageGebietNew />} />
+                <Route path="/thema/:id" element={<PageThema />} />
+                <Route path="/gebiet/:id/thema/neu" element={<PageThemaNew />} />
+                <Route path="/admin" element={<PageAdmin />} />
+                <Route path="/prefs" element={<PagePrefs />} />
+                <Route path="/login" element={<PageLogin />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </div>
+          </LoginManager>
+        </ErrorBoundary>
+      </NavigationContextProvider>
+    </LoginContextProvider>
+  );
+};
+export default App;
