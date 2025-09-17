@@ -67,4 +67,4 @@ Falls Sie das Projekt lokal ausführen oder testen möchten, gehen Sie bitte wie
 ---
 
 # Lizenz (License)  
-Die Dateien dürfen ausschließlich im Rahmen der oben genannten Vorlesung verwendet werden und sind nur zum persönlichen Gebrauch bestimmt.  
+Die Dateien dürfen ausschließlich im Rahmen der oben genannten Vorlesung verwendet werden und sind nur zum persönlichen Gebrauch bestimmt. Details siehe [LICENSE](./LICENSE).  
