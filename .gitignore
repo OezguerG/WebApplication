@@ -51,6 +51,9 @@ mongodatatest/
 *.pdf
 
 # Keep the cert folder, ignore its contents
-cert/**
-!cert/*.txt
+laptop/
+pc/
+min.cnf
+private.key
+public.crt
 
