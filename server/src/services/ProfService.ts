@@ -103,3 +103,12 @@ export async function getAlleProfs(): Promise<ProfResource[]> {
     return arrProfRes;
 }
 
+export async function getProf(id: string): Promise<ProfResource[]> {
+    const prodId = new Types.ObjectId(id);
+    const prof = await Prof.find({ _id: prodId }).exec();
+    if (!prof) {
+            throw new Error("Prof with that ID probably doesnt exist");
+    }
+    return prof;
+}
+
