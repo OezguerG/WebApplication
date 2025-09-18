@@ -4,7 +4,7 @@ import { createProf, deleteProf, getAlleProfs, getProf, updateProf } from "../se
 import { param, body, validationResult, matchedData } from 'express-validator';
 import { requiresAuthentication } from "./authentication";
 import cookieParser from "cookie-parser";
-import { verifyJWT } from "src/services/JWTService";
+import { verifyJWT } from "../services/JWTService";
 
 export const profRouter = express.Router();
 

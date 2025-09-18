@@ -20,7 +20,6 @@ app.use(express.json());
 app.set("trust proxy", 1);
 
 const verselLink = process.env.VERSEL_LINK
-console.log("VERSEL_LINK =", process.env.VERSEL_LINK);
 
 app.get("/", (_req, res) => {
   res.type("html").send(`
