@@ -1,5 +1,5 @@
 // api.ts
-import { ThemaResource, GebietResource, LoginResource } from "../Resources";
+import { ThemaResource, GebietResource, LoginResource, ProfResource } from "../Resources";
 import { fetchWithErrorHandling } from "./fetchWithErrorHandling";
 import { themen, gebiete } from "./testdata";
 
@@ -236,6 +236,15 @@ export async function getLogin(): Promise<LoginResource | false> {
   });
 
   if (response.status === 401) return false;
+  if (!response.ok) throw new Error(await parseError(response));
+  return response.json();
+}
+
+export async function getProf(profId: string): Promise<ProfResource> {
+  const response = await fetchWithErrorHandling(u(`/api/prof/${profId}`), {
+    method: "GET",
+    credentials: cred,
+  });
   if (!response.ok) throw new Error(await parseError(response));
   return response.json();
 }
