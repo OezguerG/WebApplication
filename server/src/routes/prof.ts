@@ -1,11 +1,15 @@
 import express from "express";
 import { ProfResource } from "../Resources";
-import { createProf, deleteProf, getAlleProfs, updateProf } from "../services/ProfService";
+import { createProf, deleteProf, getAlleProfs, getProf, updateProf } from "../services/ProfService";
 import { param, body, validationResult, matchedData } from 'express-validator';
 import { requiresAuthentication } from "./authentication";
+import cookieParser from "cookie-parser";
+import { verifyJWT } from "src/services/JWTService";
 
 export const profRouter = express.Router();
 
+const COOKIE_NAME = process.env.COOKIE_NAME!;
+profRouter.use(cookieParser());
 
 profRouter.get("/alle",
     requiresAuthentication,
@@ -19,6 +23,36 @@ profRouter.get("/alle",
             res.status(200).send(profs);
         } catch (err) {
             res.status(500).send({ error: "An error occurred while fetching Profs" });
+        }
+    }
+);
+
+profRouter.get("/:id",
+    requiresAuthentication,
+    param("id").isMongoId(),
+    async (req, res) => {
+        const token = req.cookies[COOKIE_NAME];
+        if (!token) {
+            return res.status(401).send(false);
+        }    
+        try {
+            const decoded = verifyJWT(token);
+            if(req.params.id !== decoded.id){
+                res.status(403).send("Nicht berechtigt Daten anderer Professoren anzuschauen")
+            }
+            const prof = await getProf(req.params.id);
+            res.status(200).send(prof);
+        } catch (err) {
+            if (err instanceof Error && err.message.toString() === "JWT is undefined or empty") {
+                res.status(400).send({ error: err.message.toString() });
+            }
+            if (err instanceof Error && err.message.toString() === "Environment variable JWT_SECRET must be defined") {
+                res.status(500).send({ error: err.message.toString() });
+            }
+            if (err instanceof Error && err.message.toString() === "Invalid JWT token") {
+                res.status(400).send(false);
+            }
+            res.status(500).send({ error: "An error occurred while fetching Prof" });
         }
     }
 );

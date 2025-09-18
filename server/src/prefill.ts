@@ -41,7 +41,7 @@ export async function prefillDB(): Promise<{
         admin: true,
     });
     logger.info(
-        `Prefill DB with test data, campusID: ${moriarty.campusID}, password 123_abc_ABC`
+        `Prefill DB with test data, campusID: ${holmes.campusID}, password 123_abc_ABC`
     );
 
     const gebieteArr: GebietResource[] = [];

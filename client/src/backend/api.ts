@@ -1,4 +1,5 @@
-import { ThemaResource, GebietResource, LoginResource } from "../Resources";
+// api.ts
+import { ThemaResource, GebietResource, LoginResource, ProfResource } from "../Resources";
 import { fetchWithErrorHandling } from "./fetchWithErrorHandling";
 import { themen, gebiete } from "./testdata";
 
@@ -435,3 +436,12 @@ export async function getProfs(): Promise<ProfResource[]> {
   }
 }
 */
+
+export async function getProf(profId: string): Promise<ProfResource> {
+  const response = await fetchWithErrorHandling(`${import.meta.env.VITE_API_SERVER_URL}/api/prof/${profId}`, {
+    method: "GET",
+    credentials: cred,
+  });
+  if (!response.ok) throw new Error(await parseError(response));
+  return response.json();
+}
