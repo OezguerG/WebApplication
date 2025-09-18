@@ -1,36 +1,41 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig(({ mode }) => {
+  // merge Vercel env + .env files (so either source works)
+  const fileEnv = loadEnv(mode, process.cwd(), '');
+  const FRONTEND_SERVER_URL =
+    process.env.FRONTEND_SERVER_URL ?? fileEnv.FRONTEND_SERVER_URL;
 
-  // Lade .env-file (mit allen Prefixen, v.a. ohne VITE-Prefix)
-  const env = loadEnv(mode, process.cwd(), '');
-  if (!env.FRONTEND_SERVER_URL) {
-    throw new Error(`FRONTEND_SERVER_URL must be defined in .env file:  ${JSON.stringify(env, null, 2)}`)
+  if (!FRONTEND_SERVER_URL) {
+    throw new Error(`FRONTEND_SERVER_URL must be defined (Vercel env or .env)`);
   }
-  // Parse FRONTEND_SERVER_URL, wir erwarten i.A. https://localhost:3000
-  const res = /^(https?):\/\/[0-9a-z_.]+(?::([0-9]+))?$/g.exec(env.FRONTEND_SERVER_URL);
-  if (!res) {
-    throw new Error("FRONTEND_SERVER_URL must defined in .env file")
-  }
-  // Die SSL-Informationen sind (bei Bedarf) ebenfalls in der .env-Datei definiert
-  const https = res[1] === "https" ? {
-    key: env.SSL_KEY_FILE,
-    cert: env.SSL_CRT_FILE
-  } : undefined;
-  // Setze Port, falls nicht definiert, verwende 3000
-  const port = res[2] ? Number(res[2]) : 3000;
 
-  // Und gebe Konfiguration zurück
+  let url: URL;
+  try {
+    url = new URL(FRONTEND_SERVER_URL);
+  } catch {
+    throw new Error(`FRONTEND_SERVER_URL is not a valid URL: "${FRONTEND_SERVER_URL}"`);
+  }
+
+  const isHttps = url.protocol === 'https:';
+  const port = url.port ? Number(url.port) : 3000;
+
+  const https = isHttps
+    ? {
+        key: fileEnv.SSL_KEY_FILE,
+        cert: fileEnv.SSL_CRT_FILE,
+      }
+    : undefined;
+
   return {
     plugins: [react()],
     server: {
-      port: port,
-      https: https
+      port,
+      https,
     },
     build: {
-      sourcemap: true
-    }
-  }
+      sourcemap: true,
+    },
+  };
 });
