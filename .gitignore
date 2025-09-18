@@ -52,3 +52,4 @@ mongodatatest/
 
 # Keep the cert folder, ignore its contents
 cert/*
+!cert/.gitkeep
