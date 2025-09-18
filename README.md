@@ -13,6 +13,40 @@ Es handelt sich um die Entwicklung einer Full-Stack-Anwendung mit folgenden Kern
 
 ---
 
+# Installation & Tests  
+
+Falls Sie das Projekt lokal ausführen oder testen möchten, gehen Sie bitte wie folgt vor:  
+
+1. Abhängigkeiten installieren:  
+   - Im Ordner **server**:  
+     ```bash
+     cd server
+     npm install
+     ```  
+   - Im Ordner **client**:  
+     ```bash
+     cd client
+     npm install
+     ```  
+
+2. SSL-Zertifikate bereitstellen:  
+   - Im Projekt befindet sich ein Ordner **cert**.  
+   - In **server/cert** und **client/cert** müssen jeweils ein **privater Schlüssel** (`private.key`) und ein **öffentliches Zertifikat** (`public.crt`) abgelegt werden.  
+   - Eine Anleitung zur Erstellung selbstsignierter Zertifikate mit OpenSSL finden Sie hier:  
+     [OpenSSL Self-Signed Certificate Guide](https://www.openssl.org/docs/manmaster/man1/openssl-req.html)  
+
+3. Tests ausführen:  
+   - Im Ordner **server**:  
+     ```bash
+     npm test
+     ```  
+   - Im Ordner **client**:  
+     ```bash
+     npm test
+     ```  
+
+---
+
 # Website Demo Instructions  
 
 1. Starten Sie den Backend-Server über folgenden Link:  
@@ -33,4 +67,4 @@ Es handelt sich um die Entwicklung einer Full-Stack-Anwendung mit folgenden Kern
 ---
 
 # Lizenz (License)  
-Die Dateien dürfen ausschließlich im Rahmen der oben genannten Vorlesung verwendet werden und sind nur zum persönlichen Gebrauch bestimmt.  
+Dieses Projekt steht unter einer Custom-Lizenz. Es darf für Demonstrations- und Bewerbungszwecke getestet werden. Eine Weiterverwendung außerhalb dieses Rahmens ist nicht gestattet. Siehe [LICENSE](./LICENSE) für Details.

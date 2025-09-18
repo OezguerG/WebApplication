@@ -4,6 +4,9 @@ https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 /node_modules
 /.pnp
 .pnp.js
+.env
+!.env.example
+cert/*
 
 # testing
 **/coverage
