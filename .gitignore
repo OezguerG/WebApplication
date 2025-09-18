@@ -51,6 +51,6 @@ mongodatatest/
 *.pdf
 
 # Keep the cert folder, ignore its contents
-!cert/README.txt
 cert/
+!cert/README.txt
 
