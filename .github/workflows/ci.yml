@@ -20,7 +20,7 @@ jobs:
 
       # Copy .env.test → .env so tests have default values
       - name: Setup client test env
-        run: cp .env.test .env
+        run: cp .env.local.example .env
 
       - name: Install dependencies
         run: npm install
@@ -42,7 +42,7 @@ jobs:
 
       # Copy .env.test → .env
       - name: Setup server test env
-        run: cp .env.test .env
+        run: cp .env.local.example .env
 
       - name: Install dependencies
         run: npm install
