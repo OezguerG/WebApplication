@@ -1,10 +1,9 @@
 name: CI Pipeline
 
-# Wann soll CI laufen?
 on:
-  push:       # bei jedem Push
+  push:
     branches: [ "main" ]
-  pull_request:  # auch bei Pull Requests
+  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -18,8 +17,22 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm install
-      - run: npm test
+
+      # Copy .env.test → .env so tests have default values
+      - name: Setup client test env
+        run: cp .env.test .env
+
+      # Append secrets from GitHub Secrets into .env
+      - name: Inject secrets into client .env
+        run: |
+          echo "SSL_KEY_FILE=${{ secrets.SSL_KEY_FILE }}" >> .env
+          echo "SSL_CRT_FILE=${{ secrets.SSL_CRT_FILE }}" >> .env
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
 
   server:
     runs-on: ubuntu-latest
@@ -31,7 +44,19 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm install
-      - run: npm test
-      - env:
-          FRONTEND_SERVER_URL: ${{ secrets.FRONTEND_SERVER_URL }}
+
+      # Copy .env.test → .env
+      - name: Setup server test env
+        run: cp .env.test .env
+
+      # Append secrets
+      - name: Inject secrets into server .env
+        run: |
+          echo "SSL_KEY_FILE=${{ secrets.SSL_KEY_FILE }}" >> .env
+          echo "SSL_CRT_FILE=${{ secrets.SSL_CRT_FILE }}" >> .env
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
