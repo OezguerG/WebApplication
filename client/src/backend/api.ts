@@ -113,7 +113,7 @@ export async function getAlleThemen(gebietId: string): Promise<ThemaResource[]> 
   if (!REAL) {
     await new Promise(r => setTimeout(r, 700));
     const list = themen.filter(t => t.gebiet === gebietId);
-    if (list.length === 0) throw new Error("No themen found");
+    if (list.length === 0) return [];
     return list;
   }
 
