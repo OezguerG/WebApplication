@@ -4,16 +4,16 @@ import { PrefContext, PrefContextState } from "./PrefContext";
 
 export const PrefContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => { 
 
-  const setDefaultsGebiet = (id: String) => {
-    id = "2";
+  const setDefaultsGebiet = () => {
+
   }
 
-  const setDefaultsThemen = (id: string) => {
-    id = "2";
+  const setDefaultsThemen = () => {
+
   }
 
-  const setProfChanges = (id: string) => {
-    id = "2";
+  const setProfChanges = () => {
+ 
   }
 
   const contextValue: PrefContextState = {

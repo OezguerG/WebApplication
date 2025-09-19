@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
 
 export interface PrefContextState {
-  setDefaultsGebiet?: (id: string) => void;
-  setDefaultsThemen?: (id: string) => void;
-  setProfChanges?: (id: string) => void;
+  setDefaultsGebiet?: () => void;
+  setDefaultsThemen?: () => void;
+  setProfChanges?: () => void;
 }
 
 export const PrefContext = createContext<PrefContextState | undefined>(undefined);
