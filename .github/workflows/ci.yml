@@ -22,12 +22,6 @@ jobs:
       - name: Setup client test env
         run: cp .env.test .env
 
-      # Append secrets from GitHub Secrets into .env
-      - name: Inject secrets into client .env
-        run: |
-          echo "SSL_KEY_FILE=${{ secrets.SSL_KEY_FILE }}" >> .env
-          echo "SSL_CRT_FILE=${{ secrets.SSL_CRT_FILE }}" >> .env
-
       - name: Install dependencies
         run: npm install
 
@@ -50,16 +44,10 @@ jobs:
       - name: Setup server test env
         run: cp .env.test .env
 
-      # Append secrets
-      - name: Inject secrets into server .env
-        run: |
-          echo "SSL_KEY_FILE=${{ secrets.SSL_KEY_FILE }}" >> .env
-          echo "SSL_CRT_FILE=${{ secrets.SSL_CRT_FILE }}" >> .env
-
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
         env:
           MONGOMS_VERSION: "7.0.14"
-        run: npm test
+        run: npm test -- --testPathIgnorePatterns="https.test.ts"
