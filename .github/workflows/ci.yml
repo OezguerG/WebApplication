@@ -45,7 +45,7 @@ jobs:
         image: mongo:6
         ports:
           - 27017:27017
-          
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -61,9 +61,6 @@ jobs:
         run: |
           echo "SSL_KEY_FILE=${{ secrets.SSL_KEY_FILE }}" >> .env
           echo "SSL_CRT_FILE=${{ secrets.SSL_CRT_FILE }}" >> .env
-      
-      - name: Install libssl1.1
-        run: sudo apt-get update && sudo apt-get install -y libssl1.1
 
       - name: Install dependencies
         run: npm install
