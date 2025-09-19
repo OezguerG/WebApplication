@@ -1,0 +1,31 @@
+name: CI Pipeline
+
+# Wann soll CI laufen?
+on:
+  push:       # bei jedem Push
+    branches: [ "main" ]
+  pull_request:  # auch bei Pull Requests
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest   # GitHub stellt eine Linux-VM bereit
+
+    steps:
+      # 1. Repository auschecken
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Node.js installieren
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3. Dependencies installieren
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Tests ausführen
+      - name: Run tests
+        run: npm test
