@@ -8,24 +8,28 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest   # GitHub stellt eine Linux-VM bereit
-
+  client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: WebApplication/client
     steps:
-      # 1. Repository auschecken
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # 2. Node.js installieren
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
+      - run: npm install
+      - run: npm test
 
-      # 3. Dependencies installieren
-      - name: Install dependencies
-        run: npm install
-
-      # 4. Tests ausführen
-      - name: Run tests
-        run: npm test
+  server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: WebApplication/server
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm test
