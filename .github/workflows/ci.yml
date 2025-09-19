@@ -33,3 +33,5 @@ jobs:
           node-version: 18
       - run: npm install
       - run: npm test
+      - env:
+          FRONTEND_SERVER_URL: ${{ secrets.FRONTEND_SERVER_URL }}
