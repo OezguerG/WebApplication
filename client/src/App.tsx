@@ -9,7 +9,6 @@ import { PageAdmin } from "./components/PageAdmin";
 import { PagePrefs } from "./components/PagePrefs";
 import { Header } from "./components/Header";
 import { PageLogin } from "./components/PageLogin";
-import { LoginManager } from "./components/LoginManager";
 import { LoginContextProvider } from "./components/LoginContext.Provider";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./components/ErrorBoundary";
@@ -20,22 +19,20 @@ const App: React.FC = () => {
     <LoginContextProvider>
       <NavigationContextProvider>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <LoginManager>
-            <div className="app-content">
-              <Header />
-              <Routes>
-                <Route path="/" element={<PageIndex />} />
-                <Route path="/gebiet/:id" element={<PageGebiet />} />
-                <Route path="/gebiet/neu" element={<PageGebietNew />} />
-                <Route path="/thema/:id" element={<PageThema />} />
-                <Route path="/gebiet/:id/thema/neu" element={<PageThemaNew />} />
-                <Route path="/admin" element={<PageAdmin />} />
-                <Route path="/prefs" element={<PagePrefs />} />
-                <Route path="/login" element={<PageLogin />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </div>
-          </LoginManager>
+          <div className="app-content">
+            <Header />
+            <Routes>
+              <Route path="/" element={<PageIndex />} />
+              <Route path="/gebiet/:id" element={<PageGebiet />} />
+              <Route path="/gebiet/neu" element={<PageGebietNew />} />
+              <Route path="/thema/:id" element={<PageThema />} />
+              <Route path="/gebiet/:id/thema/neu" element={<PageThemaNew />} />
+              <Route path="/admin" element={<PageAdmin />} />
+              <Route path="/prefs" element={<PagePrefs />} />
+              <Route path="/login" element={<PageLogin />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
         </ErrorBoundary>
       </NavigationContextProvider>
     </LoginContextProvider>
