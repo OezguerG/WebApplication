@@ -60,7 +60,6 @@ export const LoginContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
       await new Promise((resolve) => setTimeout(resolve, 0));
       navigate("/");
-      window.location.reload();
     } catch (err: any) {
       setErrorMessage(err);
     }
@@ -81,9 +80,8 @@ export const LoginContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }
     };
 
-    if (login === undefined) {
-      fetchLoginState();
-    }
+    fetchLoginState();
+
   }, [login, loginHandler]);
 
   const contextValue: LoginContextState = {

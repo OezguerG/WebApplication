@@ -19,7 +19,7 @@ interface ButtonMatcher {
     toBeButtonOrLink(): void;
 }
 declare module '@vitest/expect' {
-    interface Assertion extends ButtonMatcher {}
+    interface Assertion extends ButtonMatcher { }
 }
 
 test('Simple Happy Path', async () => {
@@ -77,11 +77,12 @@ test('Simple Happy Path', async () => {
     });
 
     expect(loginStatus.isLoggedIn).toBeTruthy(); // Nutzer sollte noch immer eingeloggt sein
-
+    cleanup();
     //////////////////////////////////////
     // Gebiet (nach erfolgreicher Anmeldung)
     render(<MemoryRouter initialEntries={["/gebiet/101"]}><App /></MemoryRouter>);
     // Editier-Buttons sollten vorhanden sein
+
     await waitFor(() => {
         screen.getByText(/Logout/i);
         expect(screen.getByText("Editieren")).toBeButtonOrLink();

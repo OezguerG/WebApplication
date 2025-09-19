@@ -15,7 +15,6 @@ export const LoginDialog: React.FC<{ show: boolean; onHide: () => void }> = ({ s
             const result = await login(campusID, password);
             setLogin!(result);
             onHide();
-            window.location.reload();
         } catch (error: any) {
             setErrorMessage(error.message);
         }

@@ -31,6 +31,7 @@ export const PagePrefs: React.FC<{}> = () => {
   }
   return (
     <div className="pagePref">
+      <h2>Pref</h2>
       {prof !== null ? <Prof prof={prof}/> : <LoadingIndicator/>}
     </div>
   );

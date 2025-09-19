@@ -31,6 +31,7 @@ export const PageAdmin: React.FC<{}> = () => {
   }
   return (
     <div className="pageAdmin">
+      <h2>Prof</h2>
       {prof !== null ? <Prof prof={prof}/> : <LoadingIndicator/>}
     </div>
   );

@@ -116,7 +116,15 @@ export const Gebiet: React.FC<GebietProps> = ({ gebiet }) => {
                 <Button variant="outline-dark" className="me-2" onClick={() => navigateToUrl?.(`/gebiet/${gebiet.id!}/thema/neu`)}>
                   Neues Thema
                 </Button>
-                {!checkHasThemen() && (
+                {checkHasThemen() ? (
+                  <Button
+                    variant="danger"
+                    className="ms-auto"
+                    onClick={() => setWarning("Gebiet kann nur gelöscht werden, wenn es keine Themen mehr hat.")}
+                  >
+                    Löschen
+                  </Button>
+                ) : (
                   <Button
                     variant="danger"
                     className="ms-auto"
