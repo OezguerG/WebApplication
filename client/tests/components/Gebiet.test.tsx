@@ -6,12 +6,17 @@ import * as api from '../../src/backend/api';
 import { LoginContextProvider } from '../../src/components/LoginContext.Provider';
 import { MemoryRouter } from 'react-router-dom';
 import { NavigationContextProvider } from '../../src/components/NavigationContext.Provider';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from '../../src/components/ErrorBoundary'
+
 test('Daten werden angezeigt', async () => {
     render(
         <MemoryRouter>
             <LoginContextProvider>
                 <NavigationContextProvider>
-                    <Gebiet gebiet={gebiete[0]} />
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <Gebiet gebiet={gebiete[0]} />
+                    </ErrorBoundary>
                 </NavigationContextProvider>
             </LoginContextProvider>
         </MemoryRouter>
@@ -30,7 +35,9 @@ test('Themen werden auch angezeigt', async () => {
         <MemoryRouter>
             <LoginContextProvider>
                 <NavigationContextProvider>
-                    <Gebiet gebiet={gebiete[0]} />
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <Gebiet gebiet={gebiete[0]} />
+                    </ErrorBoundary>
                 </NavigationContextProvider>
             </LoginContextProvider>
         </MemoryRouter>
@@ -54,7 +61,9 @@ test('Daten werden geladen "loading ..."', async () => {
         <MemoryRouter>
             <LoginContextProvider>
                 <NavigationContextProvider>
-                    <Gebiet gebiet={gebiete[0]} />
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <Gebiet gebiet={gebiete[0]} />
+                    </ErrorBoundary>
                 </NavigationContextProvider>
             </LoginContextProvider>
         </MemoryRouter>
@@ -82,7 +91,9 @@ test('Keine Themen zu Gebiet gefunden', async () => {
         <MemoryRouter>
             <LoginContextProvider>
                 <NavigationContextProvider>
-                    <Gebiet gebiet={gebiete[0]} />
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <Gebiet gebiet={gebiete[0]} />
+                    </ErrorBoundary>
                 </NavigationContextProvider>
             </LoginContextProvider>
         </MemoryRouter>
