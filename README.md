@@ -1,46 +1,46 @@
 # General  
-Dieses Projekt entstand im Rahmen der Vorlesung *Webengineering 2*.  
+This project was created as part of the *Web Engineering 2* course.  
 
-Es handelt sich um die Entwicklung einer Full-Stack-Anwendung mit folgenden Kernfunktionen:  
-- Benutzer-Authentifizierung  
-- REST-API  
-- Responsives UI  
+It involves the development of a full-stack application with the following core features:  
+- User authentication  
+- REST API  
+- Responsive UI  
 
-**Technologien:**  
+**Technologies:**  
 - Frontend: React  
 - Backend: Node.js  
-- Datenbank: MongoDB  
+- Database: MongoDB  
 
 ---
 
 # Installation & Tests  
 
-Falls Sie das Projekt lokal ausführen oder testen möchten, gehen Sie bitte wie folgt vor:  
+If you want to run or test the project locally, please proceed as follows:  
 
-1. Abhängigkeiten installieren:  
-   - Im Ordner **server**:  
+1. Install dependencies:  
+   - In the **server** folder:  
      ```bash
      cd server
      npm install
      ```  
-   - Im Ordner **client**:  
+   - In the **client** folder:  
      ```bash
      cd client
      npm install
      ```  
 
-2. SSL-Zertifikate bereitstellen:  
-   - Im Projekt befindet sich ein Ordner **cert**.  
-   - In **server/cert** und **client/cert** müssen jeweils ein **privater Schlüssel** (`private.key`) und ein **öffentliches Zertifikat** (`public.crt`) abgelegt werden.  
-   - Eine Anleitung zur Erstellung selbstsignierter Zertifikate mit OpenSSL finden Sie hier:  
+2. Provide SSL certificates:  
+   - The project contains a **cert** folder.  
+   - In **server/cert** and **client/cert**, you must place a **private key** (`private.key`) and a **public certificate** (`public.crt`).  
+   - Instructions for creating self-signed certificates with OpenSSL can be found here:  
      [OpenSSL Self-Signed Certificate Guide](https://www.openssl.org/docs/manmaster/man1/openssl-req.html)  
 
-3. Tests ausführen:  
-   - Im Ordner **server**:  
+3. Run tests:  
+   - In the **server** folder:  
      ```bash
      npm test
      ```  
-   - Im Ordner **client**:  
+   - In the **client** folder:  
      ```bash
      npm test
      ```  
@@ -49,22 +49,22 @@ Falls Sie das Projekt lokal ausführen oder testen möchten, gehen Sie bitte wie
 
 # Website Demo Instructions  
 
-1. Starten Sie den Backend-Server über folgenden Link:  
-   [Backend-Server starten](https://webapplication-amhb.onrender.com)  
+1. Start the backend server using the following link:  
+   [Start Backend Server](https://webapplication-amhb.onrender.com)  
 
-2. Auf der dortigen Seite finden Sie einen Link zur Demo-Webseite.  
+2. On that page, you will find a link to the demo website.  
 
-3. Zum Testen des Logins können Sie die folgenden Benutzerdaten verwenden und unterschiedliche Funktionen sowie Benutzerberechtigungen ausprobieren:  
+3. To test the login, you can use the following user credentials and try out different features as well as user permissions:  
 
-**Benutzer 1 – Moriarty**  
+**User 1 – Moriarty**  
 - CampusID: `459810`  
-- Passwort: `123_abc_ABC`  
+- Password: `123_abc_ABC`  
 
-**Benutzer 2 – Holmes**  
+**User 2 – Holmes**  
 - CampusID: `459813`  
-- Passwort: `123_abc_ABC`  
+- Password: `123_abc_ABC`  
 
 ---
 
-# Lizenz (License)  
-Dieses Projekt steht unter einer Custom-Lizenz. Es darf für Demonstrations- und Bewerbungszwecke getestet werden. Eine Weiterverwendung außerhalb dieses Rahmens ist nicht gestattet. Siehe [LICENSE](./LICENSE) für Details.
+# License  
+This project is licensed under a custom license. It may be tested for demonstration and application purposes. Any use outside of this scope is not permitted. See [LICENSE](./LICENSE) for details.  
