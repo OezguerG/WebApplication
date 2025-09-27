@@ -33,7 +33,11 @@ If you want to run or test the project locally, please proceed as follows:
    - The project contains a **cert** folder.  
    - In **server/cert** and **client/cert**, you must place a **private key** (`private.key`) and a **public certificate** (`public.crt`).  
    - Instructions for creating self-signed certificates with OpenSSL can be found here:  
-     [OpenSSL Self-Signed Certificate Guide](https://www.openssl.org/docs/manmaster/man1/openssl-req.html)  
+     [OpenSSL Self-Signed Certificate Guide](https://www.openssl.org/docs/manmaster/man1/openssl-req.html) 
+
+2. Create .env:  
+   - The project contains a **.env.local.example**. 
+   - create your own **.env** file following the example.
 
 3. Run tests:  
    - In the **server** folder:  
