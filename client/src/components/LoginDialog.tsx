@@ -4,7 +4,7 @@ import { login } from "../backend/api";
 import { useLoginContext } from "../LoginContext";
 
 export const LoginDialog: React.FC<{ show: boolean; onHide: () => void }> = ({ show, onHide }) => {
-    const { setLogin } = useLoginContext();
+    const { loginHandler } = useLoginContext();
     const [campusID, setCampusID] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -13,7 +13,7 @@ export const LoginDialog: React.FC<{ show: boolean; onHide: () => void }> = ({ s
         try {
             setErrorMessage("");
             const result = await login(campusID, password);
-            setLogin!(result);
+            loginHandler!(result);
             onHide();
         } catch (error: any) {
             setErrorMessage(error.message);

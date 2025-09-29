@@ -12,6 +12,7 @@ import { PageLogin } from "./components/PageLogin";
 import { LoginContextProvider } from "./components/LoginContext.Provider";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./components/ErrorBoundary";
+import { PrivateRoute } from "./components/PrivateRoute";
 import { NavigationContextProvider } from "./components/NavigationContext.Provider";
 
 const App: React.FC = () => {
@@ -20,16 +21,17 @@ const App: React.FC = () => {
       <NavigationContextProvider>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <div className="app-content">
+            
             <Header />
             <Routes>
+              <Route path="/login" element={<PageLogin />} />
               <Route path="/" element={<PageIndex />} />
               <Route path="/gebiet/:id" element={<PageGebiet />} />
               <Route path="/gebiet/neu" element={<PageGebietNew />} />
               <Route path="/thema/:id" element={<PageThema />} />
               <Route path="/gebiet/:id/thema/neu" element={<PageThemaNew />} />
-              <Route path="/admin" element={<PageAdmin />} />
-              <Route path="/prefs" element={<PagePrefs />} />
-              <Route path="/login" element={<PageLogin />} />
+              <Route path="/admin" element={<PrivateRoute><PageAdmin /></PrivateRoute>} />
+              <Route path="/prefs" element={<PrivateRoute><PagePrefs /></PrivateRoute>} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

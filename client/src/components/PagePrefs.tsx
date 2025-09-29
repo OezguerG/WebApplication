@@ -19,20 +19,23 @@ export const PagePrefs: React.FC<{}> = () => {
         } catch (err) {
           setError("Error fetching prof: " + err);
         }
+      } else {
+        setError("no access, must first log in")
       }
     }
     
     fetchProf();
   }, [login]);
 
-
   if (error) {
     throw new Error(error)
   }
+
   return (
     <div className="pagePref">
-      <h2>Pref</h2>
+      <h2 className="ms-4">Globale Einstellungen für {prof !== null ? <strong>{prof!.name}</strong> : <LoadingIndicator/>}</h2>
       {prof !== null ? <Prof prof={prof}/> : <LoadingIndicator/>}
+      <p> </p>
     </div>
   );
 }

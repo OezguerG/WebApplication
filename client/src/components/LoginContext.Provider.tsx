@@ -13,18 +13,15 @@ export const LoginContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const loginHandler = useCallback(
     (newLogin: false | LoginResource | undefined) => {
-      setLogin(newLogin);
       try {
         if (newLogin && typeof newLogin === "object") {
+          setLogin(newLogin)
           setIsLoggedIn(true);
           setIsAdmin(newLogin.role === "a");
-          localStorage.setItem("isLoggedIn", JSON.stringify(true));
-          localStorage.setItem("isAdmin", JSON.stringify(newLogin.role));
         } else {
+          setLogin(false)
           setIsLoggedIn(false);
           setIsAdmin(false);
-          localStorage.setItem("isLoggedIn", JSON.stringify(false));
-          localStorage.setItem("isAdmin", JSON.stringify(false));
         }
       } catch (err: any) {
         setErrorMessage(err);
@@ -40,8 +37,6 @@ export const LoginContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
       setIsLoggedIn(false);
       setIsAdmin(false);
       setErrorMessage(null);
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("isAdmin");
     } catch (err: any) {
       setErrorMessage(err);
     }
@@ -82,14 +77,14 @@ export const LoginContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     fetchLoginState();
 
-  }, [login, loginHandler]);
+  }, []);
 
   const contextValue: LoginContextState = {
     login,
     isLoggedIn,
     isAdmin,
     errorMessage,
-    setLogin,
+    loginHandler,
     handleLogout,
     handleErrorLogout,
   };
