@@ -27,10 +27,8 @@ export const PageLogin: React.FC = () => {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-    >
-      <div style={{ width: "100%", maxWidth: "600px" }}>
+    <div className="d-flex justify-content-center align-items-start vh-100">
+      <div style={{ width: "100%", maxWidth: "600px", marginTop: "100px" }}>
         <h1 className="mb-4">Login</h1>
         {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
         <Form>

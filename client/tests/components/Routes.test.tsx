@@ -49,7 +49,7 @@ test('Prefs', async () => {
     </MemoryRouter>);
 
     await waitForLonger(() => {
-        const title = screen.getAllByText(/Pref/i);
+        const title = screen.getAllByText(/Globale Einstellungen für/i);
         expect(title.length).toBeGreaterThanOrEqual(1);
     });
 });
