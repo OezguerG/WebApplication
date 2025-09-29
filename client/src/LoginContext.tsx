@@ -7,9 +7,9 @@ export interface LoginContextState {
   isLoggedIn?: boolean;
   isAdmin?: boolean;
   errorMessage?: string | null;
-  loginHandler: (newLogin: false | LoginResource | undefined) => void;
-  handleLogout: () => void;
-  handleErrorLogout: () => void;
+  loginHandler?: (newLogin: false | LoginResource | undefined) => void;
+  handleLogout?: () => void;
+  handleErrorLogout?: () => void;
 }
 
 

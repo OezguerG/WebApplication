@@ -15,7 +15,7 @@ export const PageLogin: React.FC = () => {
     try {
       setErrorMessage("");
       const result = await login(campusID, password);
-      loginHandler(result);
+      loginHandler?.(result);
       navigateHome?.();
     } catch (error: any) {
       setErrorMessage(error.message);

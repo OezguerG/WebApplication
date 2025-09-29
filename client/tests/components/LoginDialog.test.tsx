@@ -30,12 +30,12 @@ const LoginDialogWithErrorBoundary = withErrorBoundary(LoginDialog, {
 test('LoginDialog ruft (indirekt) Backend auf', async () => {
 
   let login: LoginResource | undefined | false = undefined;
-  const setLogin = (newLogin: LoginResource | undefined | false) => { login = newLogin };
+  const loginHandler = (newLogin: LoginResource | undefined | false) => { login = newLogin };
 
   const expectedLogin = { id: "123", role: "u", exp: 1234567890 };
 
   render(
-    <LoginContext.Provider value={{ login, setLogin }}>
+    <LoginContext.Provider value={{ login, loginHandler }}>
       <MemoryRouter initialEntries={["/"]}>
         <LoginDialogWithErrorBoundary onHide={() => { }} show={true} />
       </MemoryRouter>
