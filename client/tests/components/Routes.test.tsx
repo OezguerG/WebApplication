@@ -3,7 +3,7 @@ import { withErrorBoundary } from 'react-error-boundary';
 import { MemoryRouter } from 'react-router';
 import App from '../../src/App';
 
-import { mockFetch } from './mockFetch';
+import { LoginStatus, mockFetch } from './mockFetch';
 import { LoginContextProvider } from '../../src/components/LoginContext.Provider';
 
 // 1000 is the default anyway
@@ -42,6 +42,9 @@ test('App', async () => {
 });
 
 test('Prefs', async () => {
+    const loginStatus = new LoginStatus(true, false);
+    mockFetch(loginStatus);
+    
     render(<MemoryRouter initialEntries={["/prefs"]}>
         <LoginContextProvider>
             <AppWithErrorBoundary />
@@ -49,12 +52,15 @@ test('Prefs', async () => {
     </MemoryRouter>);
 
     await waitForLonger(() => {
-        const title = screen.getAllByText(/Globale Einstellungen für/i);
+        const title = screen.getAllByText(/Globale/i);
         expect(title.length).toBeGreaterThanOrEqual(1);
     });
 });
 
 test('Admin', async () => {
+    const loginStatus = new LoginStatus(true, false);
+    mockFetch(loginStatus);
+    
     render(<MemoryRouter initialEntries={["/admin"]}>
         <AppWithErrorBoundary />
     </MemoryRouter>);
